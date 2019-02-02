@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<div class ="container" style="margin:0 auto; margin-top:100px; margin-bottom:100px;">
+  <center>
+    {% if profile.الصورة_الشخصية %}
+        <a><img src="{{profile.الصورة_الشخصية.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+    {% else %}
+      <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
+    {% endif %}
+      <h3 class="media-heading">{{profile.المستخدم}}</h3>
+        <span><strong>{{profile.headline}} </strong></span>
+  </center>
+
+<hr>
+<center>
+  <p class="text-left"><strong>Bio: </strong><br>
+  <hr>
+    <h4>User Notes:</h4><br>
+    {% for blog in blogs  %}
+      <p>{{blog}}</p>
+    {% endfor %}
+  <hr>
+    <a href="{% url 'accounts:edit_profile' profile.slug %}">Edit Profile</a>
+    <hr>
+    <a href="{% url 'accounts:change_password' profile.slug %}">Change Password</a>
+  <br>
+</center>
+</div>
+{% endblock %}

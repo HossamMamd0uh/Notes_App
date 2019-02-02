@@ -1,0 +1,18 @@
+<h1>{{note}}</h1>
+
+<hr>
+  <a href="{% url 'notes:note_edit' note.slug %}">Update Note Details</a>
+<hr>
+
+
+<h3>{{note.العنوان}}</h3>
+
+<h3>{{note.المقدمة|safe}}</h3>
+<h3>{{note.خطوات_المشروع|safe}}</h3>
+<h3>{{note.تكلفة_المشروع|safe}}</h3>
+<h3>{{note.استخدمت_المكن_فين|safe}}</h3>
+<h3>{{note.الكود||safe}}</h3>
+<h4>{{note.active}}</h4>
+<h5>{{note.الاشارات}}</h5>
+<h5>{{note.ارفع_صورة}}</h5>
+<h5>{{note.ارفع_الكود}}</h5>

@@ -1,0 +1,7 @@
+<h3>All The Avaliable Notes</h3>
+  <a href="{% url 'notes:add_note' %}">Add New Note</a>
+  <hr>
+  {% for note in all_notes  %}
+      <a href="{% url 'notes:note_detail' note.slug %}">{{note}}</a>
+      <br>
+  {% endfor %}

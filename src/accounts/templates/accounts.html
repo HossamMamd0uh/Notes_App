@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<div class ="container" style="margin:0 auto; margin-top:100px; margin-bottom:100px;">
+{% for profile in all_accounts %}
+    <tr>
+      <td>
+        {% if profile.الصورة_الشخصية %}
+            <a><img src="{{profile.الصورة_الشخصية.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+        {% else %}
+          <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
+        {% endif %} &nbsp
+        <a href="{% url 'accounts:profile' profile.slug %}">{{profile.المستخدم}}</a><br>
+        <hr>
+        {% endfor %}
+      </td>
+    <tr>
+  </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+<div class ="container" style="margin:0 auto; margin-top:100px; margin-bottom:100px;">
+  <form method="post">
+    {% if user.is_authenticated %}
+      <p>You're Already Loged In <a href="{% url 'notes:all_notes' %}"> Go Home </a> or <a href="{%url 'notes:add_note' %}"> Create A Note </a><p>
+    {% else %}
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+          <button type="submit" class="btn btn-primary">login</button>
+      {% endbuttons %}
+    {% endif %}
+  </form>
+</div>
+{% endblock  %}
