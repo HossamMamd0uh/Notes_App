@@ -19,6 +19,12 @@ def detail(request , slug):
     }
     return render(request , 'one_note.html' , context)
 
+def step(request , step_assign):
+    step = Steps.objects.get(step_assign=step_assign)
+    context = {
+        'step' : step
+    }
+    return render(request , 'one_note.html' , context)
 
 def note_add(request):
     if request.method == 'POST':
@@ -29,7 +35,7 @@ def note_add(request):
             new_form.user = request.user
             new_form.save()
             messages.success(request, 'Note Created Successfully.')
-            return redirect('/notes')
+            return redirect('/notes/add_step')
 
     else:
         form = NoteForm()
@@ -43,12 +49,12 @@ def add_step(request):
     if request.method == 'POST':
         steps = Steps(request.POST , request.FILES)
 
-        if form.is_valid():
-            new_form = form.save(commit=False)
+        if steps.is_valid():
+            new_form = steps.save(commit=False)
             new_form.user = request.user
             new_form.save()
             messages.success(request, 'step added')
-            return redirect('/notes')
+            return redirect('/notes/add_step')
 
     else:
         steps = Steps()

@@ -12,11 +12,11 @@
         {% buttons %}
           <br>
             <button type="submit" class="btn btn-primary">Save Changes</button>
-            <P>Back To Your <a href="{% url 'notes:add_note' %}">Form</a> ?</p>
+            <P>Back To Your <a href="{% url 'notes:all_notes' %}">Form</a> ?</p>
         {% endbuttons %}
     </form>
     {% else %}
-  
+
     {% endif %}
   </div>
 </div>

@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap4',
     'django_bleach',
-    
 ]
 
 MIDDLEWARE = [
