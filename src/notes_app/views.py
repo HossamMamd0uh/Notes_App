@@ -19,8 +19,14 @@ def detail(request , slug):
     }
     return render(request , 'one_note.html' , context)
 
-def step(request , step_assign):
-    step = Steps.objects.get(step_assign=step_assign)
+def all_steps(request):
+    all_steps = Steps.objects.all()
+    context = {
+        'all_steps' : all_steps
+    }
+    return render(request, 'one_note.html' , context)
+def step(request, slug ):
+    step = Steps.objects.get(slug=slug)
     context = {
         'step' : step
     }

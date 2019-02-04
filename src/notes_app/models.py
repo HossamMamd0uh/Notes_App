@@ -22,8 +22,17 @@ class Note(models.Model):
 
 class Steps(models.Model):
     step_assign = models.ForeignKey(Note, on_delete=models.CASCADE, null=True)
+    slug = models.SlugField(null=True , blank=True)
     step_title = models.CharField(blank=True, max_length=100)
     step_photo = models.FileField(upload_to='media' , blank=True)
     step_photo_caption = models.CharField(blank=True, max_length=100)
     step_content = models.TextField(blank=True)
     code = models.FileField(upload_to='document', blank=True)
+
+    def __str__(self):
+        return self.step_assign
+
+    def save(self , *args , **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.step_assign)
+            super(Steps , self).save(*args , **kwargs)
