@@ -14,11 +14,10 @@ class NoteForm(forms.ModelForm):
                 'about' : _('وصف المشروع'),
         }
 
-class Steps(forms.ModelForm):
+class StepsForm(forms.ModelForm):
     class Meta:
         model = Steps
         fields = [
-                'step_assign',
                 'step_title',
                 'step_photo',
                 'step_photo_caption',
@@ -26,7 +25,6 @@ class Steps(forms.ModelForm):
                 'code',
         ]
         labels = {
-                'step_assign' : _('ربط الخطوة'),
                 'step_title' : _('عنوان الخطوة'),
                 'step_photo' : _('صورة الخطوة'),
                 'step_photo_caption' : _('وصف الصورة'),

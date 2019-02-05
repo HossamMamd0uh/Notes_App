@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponse
 # Create your views here.
 from . models import Note , Steps
-from . forms import NoteForm , Steps
+from . forms import NoteForm , StepsForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 def all_notes(request):
@@ -12,25 +12,28 @@ def all_notes(request):
     }
     return render(request , 'notes.html' , context)
 
-def detail(request , slug):
-    note = Note.objects.get(slug=slug)
-    context = {
-        'note' : note
-    }
-    return render(request , 'one_note.html' , context)
-
 def all_steps(request):
     all_steps = Steps.objects.all()
     context = {
         'all_steps' : all_steps
     }
-    return render(request, 'one_note.html' , context)
+    return render(request , 'steps_view.html' , context)
+
+def detail(request , slug):
+    note = Note.objects.get(slug=slug)
+    steps = Steps.objects.filter(step_assign__slug = slug)
+    context = {
+        'note' : note,
+        'steps' : steps
+    }
+    return render(request , 'one_note.html' , context)
+
 def step(request, slug ):
     step = Steps.objects.get(slug=slug)
     context = {
         'step' : step
     }
-    return render(request , 'one_note.html' , context)
+    return render(request , 'step_view.html' , context)
 
 def note_add(request):
     if request.method == 'POST':
@@ -41,7 +44,7 @@ def note_add(request):
             new_form.user = request.user
             new_form.save()
             messages.success(request, 'Note Created Successfully.')
-            return redirect('/notes/add_step')
+            return redirect('/notes/add_step/' + str(new_form.note_id) +'/')
 
     else:
         form = NoteForm()
@@ -51,19 +54,20 @@ def note_add(request):
     }
     return render(request , 'add.html' , context)
 
-def add_step(request):
+def add_step(request,note):
     if request.method == 'POST':
-        steps = Steps(request.POST , request.FILES)
+        steps = StepsForm(request.POST , request.FILES)
 
         if steps.is_valid():
             new_form = steps.save(commit=False)
-            new_form.user = request.user
+            new_form.step_assign = Note.objects.get(pk=note)
+            #new_form.step_title = "rwgrg"
             new_form.save()
             messages.success(request, 'step added')
-            return redirect('/notes/add_step')
+            return redirect('/notes/add_step/' + note + '/' )
 
     else:
-        steps = Steps()
+        steps = StepsForm()
 
     context = {
         'steps' : steps

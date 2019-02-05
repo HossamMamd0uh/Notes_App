@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+    <section class="blog-area section-gap">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 pb-30 header-text">
+            <h1>Our Recent Projects</h1>
+            <p>
+              Create, Update And Share Projects With Others
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          {% for step in all_steps  %}
+          <hr>
+            <a href="{% url 'notes:step' step.slug %}">{{step.step_content}}</a>
+          {% empty %}
+          No records
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endblock  %}

@@ -5,7 +5,7 @@
 <div class="row">
   <div id="steps" style="margin:0 auto; margin-top:100px; margin-bottom:100px;">
     {% if user.is_authenticated %}
-    <form method="post" enctype='multipart/form-data'>
+    <form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
         {{form.media}}
         {% bootstrap_form steps %}

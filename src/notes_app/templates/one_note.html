@@ -26,8 +26,13 @@
               <div class="single-blog col-lg-12 col-md-12">
                 <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
             {% endif %}
-              <h2>{{step.step_content}}</h2>
+
               <h2>{{note.title}}</h2>
+
+              <h4>{% for step in steps %}
+                  {{step.step_content}}<br>
+                  {% endfor %}
+              </h4>
             </div>
           </div>
         </div>
