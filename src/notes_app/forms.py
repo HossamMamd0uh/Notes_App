@@ -8,10 +8,26 @@ class NoteForm(forms.ModelForm):
         fields = [
                 'title',
                 'about',
+                'problem',
+                'problem_solve',
+                'how_problem_solve',
+                'project_cost',
+                'purchase_place',
+                'tools_usage',
+                'the_end',
+                'tags',
         ]
         labels = {
                 'title' : _('العنوان'),
                 'about' : _('وصف المشروع'),
+                'problem' : _('المشكلة'),
+                'problem_solve' : _('حل المشكلة'),
+                'how_problem_solve' : _('كيف قمت بحل المشكلة'),
+                'project_cost' : _('تكلفة المشروع'),
+                'purchase_place' : _('اماكن شراء الادوات'),
+                'tools_usage' : _('اماكن استخدام الادوات'),
+                'the_end' : _('النهاية'),
+                'tags' : _('الاشارات')
         }
 
 class StepsForm(forms.ModelForm):

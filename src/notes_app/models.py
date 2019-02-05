@@ -13,6 +13,16 @@ class Note(models.Model):
     title = models.CharField(blank=True, max_length=100)
     slug    = models.SlugField(null=True , blank=True)
     about = models.TextField(blank=True)
+    problem = models.TextField(blank=True)
+    problem_solve = models.TextField(blank=True)
+    how_problem_solve = models.TextField(blank=True)
+    project_cost = models.IntegerField(blank=True, null=True)
+    purchase_place = models.TextField(blank=True)
+    tools_usage = models.TextField(blank=True)
+    the_end = models.TextField(blank=True)
+    created = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    active  = models.BooleanField(default=True)
+    tags    = models.CharField(blank=True, max_length=300)
 
     def __str__(self):
         return self.title

@@ -12,13 +12,6 @@ def all_notes(request):
     }
     return render(request , 'notes.html' , context)
 
-def all_steps(request):
-    all_steps = Steps.objects.all()
-    context = {
-        'all_steps' : all_steps
-    }
-    return render(request , 'steps_view.html' , context)
-
 def detail(request , slug):
     note = Note.objects.get(slug=slug)
     steps = Steps.objects.filter(step_assign__slug = slug)
@@ -27,13 +20,6 @@ def detail(request , slug):
         'steps' : steps
     }
     return render(request , 'one_note.html' , context)
-
-def step(request, slug ):
-    step = Steps.objects.get(slug=slug)
-    context = {
-        'step' : step
-    }
-    return render(request , 'step_view.html' , context)
 
 def note_add(request):
     if request.method == 'POST':
@@ -65,7 +51,6 @@ def add_step(request,note):
             new_form.save()
             messages.success(request, 'step added')
             return redirect('/notes/add_step/' + note + '/' )
-
     else:
         steps = StepsForm()
 
@@ -73,7 +58,6 @@ def add_step(request,note):
         'steps' : steps
     }
     return render(request , 'steps.html' , context)
-
 
 def edit_note(request , slug):
     note = get_object_or_404(Note , slug=slug)
