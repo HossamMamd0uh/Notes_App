@@ -135,3 +135,4 @@ LOGIN_REDIRECT_URL = '/notes/add_note'
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+ALLOW_UNICODE_SLUGS = True

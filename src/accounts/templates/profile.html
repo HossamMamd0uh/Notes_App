@@ -3,21 +3,21 @@
 {% block body %}
 <div class ="container" style="margin:0 auto; margin-top:100px; margin-bottom:100px;">
   <center>
-    {% if profile.الصورة_الشخصية %}
-        <a><img src="{{profile.الصورة_الشخصية.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+    {% if profile.profile_img %}
+        <a><img src="{{profile.profile_img.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
     {% else %}
       <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
     {% endif %}
-      <h3 class="media-heading">{{profile.المستخدم}}</h3>
+      <h3 class="media-heading">{{profile.name}}</h3>
         <span><strong>{{profile.headline}} </strong></span>
   </center>
 
 <hr>
 <center>
-  <p class="text-left"><strong>Bio: </strong><br>
+  <p class="text-left"><strong>Bio: </strong> {{profile.bio}}<br>
   <hr>
     <h4>User Notes:</h4><br>
-    {% for blog in blogs  %}
+    {% for blog in blogs %}
       <p>{{blog}}</p>
     {% endfor %}
   <hr>

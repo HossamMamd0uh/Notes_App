@@ -5,12 +5,12 @@
 {% for profile in all_accounts %}
     <tr>
       <td>
-        {% if profile.الصورة_الشخصية %}
-            <a><img src="{{profile.الصورة_الشخصية.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+        {% if profile.profile_img %}
+            <a><img src="{{profile.profile_img.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
         {% else %}
           <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
         {% endif %} &nbsp
-        <a href="{% url 'accounts:profile' profile.slug %}">{{profile.المستخدم}}</a><br>
+        <a href="{% url 'accounts:profile' profile.slug %}">{{profile.name}}</a><br>
         <hr>
         {% endfor %}
       </td>

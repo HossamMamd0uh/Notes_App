@@ -15,19 +15,23 @@
           {% for note in all_notes  %}
           <div class="single-blog col-lg-4 col-md-4">
               {% if note.photo %}
-                  <a href="{% url 'notes:note_detail' note.slug %}"><img class="f-img img-fluid mx-auto" src="{{note.photo.url}}" alt=""></a>
+                  <a href="{% url 'notes:note_detail' note.slug %}"><img class="f-img img-fluid mx-auto" src="{{note.featured_photo.url}}" alt=""></a>
               {% else %}
                 <a href="{% url 'notes:note_detail' note.slug %}"><img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt=""></a>
               {% endif %}
             <h4>
-              <a href="{% url 'notes:note_detail' note.slug %}">{{note.العنوان}}</a>
+              <a href="{% url 'notes:note_detail' note.slug %}">{{note.title}}</a>
             </h4>
             <p>
-              {{note.intro|safe|truncatewords:10}}
+              {{note.about|safe|truncatewords:10}}
             </p>
             <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
               <div>
-                <img class="img-fluid" src="{% static 'home-static/img/user.png' %}" alt="">
+                {% if profile.profile_img %}
+                  <img src="{{profile.profile_img.url}}" name="aboutme" width="20" height="20" border="0" class="img-circle">
+                {% else %}
+                  <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" width="20" height="20" border="0" class="img-circle">
+                {% endif %}
                 <a href="#"><span>{{note.user.username}}</span></a>
               </div>
               <div class="meta">

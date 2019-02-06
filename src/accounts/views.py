@@ -9,6 +9,7 @@ from django.contrib import messages
 from notes_app.models import Note
 from notes_app.views import detail
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import *
 # Create your views here.
 def all_accounts(request):
     all_accounts = Profile.objects.all()
@@ -41,14 +42,14 @@ def register(request):
 
 def profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
-    blogs = Note.objects.filter(slug=slug).values_list('id', flat=True)
+    blogs = Note.objects.all()
     context = {
         'profile' : profile,
         'blogs' : blogs,
     }
     return render(request , 'profile.html' , context)
 
-
+@login_required
 def edit_profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
     if request.method == 'POST':
@@ -75,10 +76,9 @@ def edit_profile(request , slug):
     return render(request , 'edit_profile.html' , context)
 
 
-
+@login_required
 def change_password(request , slug):
-    profile = get_object_or_404(Profile , slug=slug)
-
+    profile = Profile.objects.filter(user__username=request.user)
     if request.method == 'POST':
         password_form = PasswordChangeForm(request.user , request.POST)
         if password_form.is_valid():

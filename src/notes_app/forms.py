@@ -8,26 +8,38 @@ class NoteForm(forms.ModelForm):
         fields = [
                 'title',
                 'about',
-                'problem',
-                'problem_solve',
-                'how_problem_solve',
+                'about_photo',
+                'vid',
+                'comp',
+                'comp_photo',
+                'tools',
+                'tools_photo',
                 'project_cost',
                 'purchase_place',
                 'tools_usage',
                 'the_end',
+                'fin_photo',
+                'fin_vid',
+                'poject_code',
                 'tags',
         ]
         labels = {
                 'title' : _('العنوان'),
-                'about' : _('وصف المشروع'),
-                'problem' : _('المشكلة'),
-                'problem_solve' : _('حل المشكلة'),
-                'how_problem_solve' : _('كيف قمت بحل المشكلة'),
-                'project_cost' : _('تكلفة المشروع'),
-                'purchase_place' : _('اماكن شراء الادوات'),
-                'tools_usage' : _('اماكن استخدام الادوات'),
-                'the_end' : _('النهاية'),
-                'tags' : _('الاشارات')
+                'about' : _('مقدمة المشروع'),
+                'about_photo' : _('اضف صورة'),
+                'vid' : _('ارفع فيديو'),
+                'comp' : _('المكونات'),
+                'comp_photo' : _('صورة المكونات'),
+                'tools' : _('الادوات'),
+                'tools_photo' : _('صورة الادوات'),
+                'project_cost' : _('التكلفة الشاملة للمشروع'),
+                'purchase_place' : _('اماكن شراء الادوات والمكونات'),
+                'tools_usage' : _('اماكن استخدام المكن'),
+                'the_end' : _('التصميم'),
+                'fin_photo' : _('ارفع صورة'),
+                'fin_vid' : _('لينك الفيديو'),
+                'poject_code' : _('ارفع ملف'),
+                'tags' : _('الاشارات'),
         }
 
 class StepsForm(forms.ModelForm):
@@ -39,11 +51,15 @@ class StepsForm(forms.ModelForm):
                 'step_photo_caption',
                 'step_content',
                 'code',
+                'step_code',
+                'step_code_link',
         ]
         labels = {
                 'step_title' : _('عنوان الخطوة'),
                 'step_photo' : _('صورة الخطوة'),
                 'step_photo_caption' : _('وصف الصورة'),
                 'step_content' : _('الخطوة'),
-                'code' : _('ملف الخطوة')
+                'code' : _('ملف الخطوة'),
+                'step_code' : _('الكود المستخدم'),
+                'step_code_link' : _('لينك الكود')
         }
