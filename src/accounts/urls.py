@@ -11,5 +11,4 @@ urlpatterns = [
     path('profile/<slug:slug>/', views.profile, name='profile'),
     path('profile/<slug:slug>/edit', views.edit_profile, name='edit_profile'),
     path('profile/<slug:slug>/change_password', views.change_password, name='change_password'),
-
 ]

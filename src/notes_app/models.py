@@ -9,12 +9,11 @@ from django_bleach.models import BleachField
 
 class Note(models.Model):
     user    = models.ForeignKey(User , on_delete=models.CASCADE)
-    note_id = models.AutoField(primary_key=True , null=False)
     title = models.CharField(blank=True, max_length=100)
     featured_photo = models.FileField(upload_to='media' , blank = True)
     slug    = models.SlugField(null=True , blank=True , allow_unicode=True)
     about = models.TextField(blank=True)
-    about_photo = models.FileField(upload_to='media' , blank=True)
+    about_photo = models.FileField(upload_to='media' , blank=True , null=True)
     vid = models.FileField(upload_to='media' , blank=True)
     comp = models.TextField(blank=True)
     comp_photo = models.FileField(upload_to='media' , blank=True)
@@ -36,9 +35,8 @@ class Note(models.Model):
         return self.title
 
     def save(self , *args , **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title , allow_unicode=True)
-            super(Note , self).save(*args , **kwargs)
+        self.slug = slugify(self.title , allow_unicode=True)
+        super(Note , self).save(*args , **kwargs)
 
 class Steps(models.Model):
     step_assign = models.ForeignKey(Note , on_delete=models.CASCADE)
@@ -55,6 +53,5 @@ class Steps(models.Model):
         return self.step_title
 
     def save(self , *args , **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.step_title , allow_unicode=True)
-            super(Steps , self).save(*args , **kwargs)
+        self.slug = slugify(self.step_title , allow_unicode=True)
+        super(Steps , self).save(*args , **kwargs)

@@ -28,19 +28,43 @@
             {% endif %}
               <h2>:المقدمة</h2><br><br>
               {{note.about|safe}}<br>
-              <img class="center" src="{{note.about_photo.url}}" width="500px" height="500px"><br>
+              {% if note.about_photo %}
+              <img class="f-img img-fluid mx-auto " src="{{note.about_photo.url}}" width="500px" height="500px"><br>
+              {% else %}
+                <div class="single-blog col-lg-12 col-md-12">
+                  <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+              {% endif %}
               {{note.comp|safe}}<br>
+              {% if note.comp_photo %}
               <img class="f-img img-fluid mx-auto " src="{{note.comp_photo.url}}" width="500px" height="500px"><br>
+              {% else %}
+                <div class="single-blog col-lg-12 col-md-12">
+                  <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+              {% endif %}
               {{note.tools|safe}}<br>
+              {% if note.tools_photo %}
               <img class="f-img img-fluid mx-auto " src="{{note.tools_photo.url}}" width="500px" height="500px" ><br>
+              {% else %}
+                <div class="single-blog col-lg-12 col-md-12">
+                  <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+              {% endif %}
                 <hr>
               <h2>:خطوات المشروع</h2><br><br>
               {% for step in steps %}
                       {{step.step_title}}<br>
                       {{step.step_photo_caption}}<br>
-                      <img class="f-img img-fluid mx-auto post_banner" src="{{step.step_photo.url}}" alt="">
+                      {% if step.step_photo %}
+                      <img class="f-img img-fluid mx-auto post_banner" src="{{step.step_photo.url}}" alt=""><br>
+                      {% else %}
+                        <div class="single-blog col-lg-12 col-md-12">
+                          <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+                      {% endif %}
                       {{step.step_content}}<br>
+                      {% if step.step_code %}
                       <a href="{{step.step_code.url}}">code file</a>
+                      {% else %}
+                        <p>No Code For This Step</p>
+                      {% endif %}
                       <hr>
               {% endfor %}
               <h2>:الكتالوج</h2><br>
@@ -54,10 +78,18 @@
               {{note.tools_usage|safe}}<br>
               <h4>:التكلفة الشاملة للمشروع</h4><br>
               {{note.the_end|safe}}<br>
-              <img class="f-img img-fluid mx-auto post_banner" src="{{note.fin_photo.url}}" alt="">
+              {% if note.comp_photo %}
+              <img class="f-img img-fluid mx-auto post_banner" src="{{note.fin_photo.url}}" alt=""><br>
+              {% else %}
+                <div class="single-blog col-lg-12 col-md-12">
+                  <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+              {% endif %}
               <h4>:الكود</h4><br>
-              {{note.poject_code}}<br>
-              <a href="{{note.poject_code.url}}">code file</a>
+              {% if note.project_code %}
+              <a href="{{note.project_code.url}}">code file</a>
+              {% else %}
+                <p>No Code For This Project</p>
+              {% endif %}
             </div>
           </div>
         </div>

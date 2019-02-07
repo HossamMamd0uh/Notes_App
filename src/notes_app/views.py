@@ -30,7 +30,7 @@ def note_add(request):
             new_form.user = request.user
             new_form.save()
             messages.success(request, 'Note Created Successfully.')
-            return redirect('/notes/add_step/' + str(new_form.note_id) +'/')
+            return redirect('/notes/add_step/' + str(new_form.pk) +'/')
 
     else:
         form = NoteForm()
