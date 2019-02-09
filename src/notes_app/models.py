@@ -2,16 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 import datetime
-from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 from ordered_model.models import OrderedModel
 from django_bleach.models import BleachField
-
+from django.dispatch import receiver
+from .slugify import unique_slug_generator
 class Note(models.Model):
     user    = models.ForeignKey(User , on_delete=models.CASCADE)
     title = models.CharField(blank=True, max_length=100)
     featured_photo = models.FileField(upload_to='media' , blank = True)
-    slug    = models.SlugField(null=True , blank=True , allow_unicode=True)
+    slug    = models.SlugField(null=True , blank=True , allow_unicode=True, unique=True)
     about = models.TextField(blank=True)
     about_photo = models.FileField(upload_to='media' , blank=True , null=True)
     vid = models.FileField(upload_to='media' , blank=True)
@@ -34,8 +34,14 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 
+@receiver(models.signals.pre_save, sender=Note)
+def auto_slug_generator(sender, instance, **kwargs):
+    """
+    Creates a slug if there is no slug.
+    """
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
     def save(self , *args , **kwargs):
-        self.slug = slugify(self.title , allow_unicode=True)
         super(Note , self).save(*args , **kwargs)
 
 class Steps(models.Model):
@@ -52,6 +58,13 @@ class Steps(models.Model):
     def __str__(self):
         return self.step_title
 
+
+@receiver(models.signals.pre_save, sender=Note)
+def auto_slug_generator(sender, instance, **kwargs):
+    """
+    Creates a slug if there is no slug.
+    """
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
     def save(self , *args , **kwargs):
-        self.slug = slugify(self.step_title , allow_unicode=True)
         super(Steps , self).save(*args , **kwargs)

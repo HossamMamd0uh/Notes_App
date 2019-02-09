@@ -42,10 +42,8 @@ def register(request):
 
 def profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
-    blogs = Note.objects.all()
     context = {
         'profile' : profile,
-        'blogs' : blogs,
     }
     return render(request , 'profile.html' , context)
 

@@ -15,12 +15,7 @@
 <hr>
 <center>
   <p class="text-left"><strong>Bio: </strong> {{profile.bio}}<br>
-  <hr>
-    <h4>User Notes:</h4><br>
-    {% for blog in blogs %}
-      <p>{{blog}}</p>
-    {% endfor %}
-  <hr>
+
     <a href="{% url 'accounts:edit_profile' profile.slug %}">Edit Profile</a>
     <hr>
     <a href="{% url 'accounts:change_password' profile.slug %}">Change Password</a>
