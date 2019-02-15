@@ -1,5 +1,5 @@
 from django import forms
-from .models import Note , Steps
+from .models import Note , Steps , Story , About , News
 from ckeditor.widgets import CKEditorWidget
 from django.utils.translation import gettext_lazy as _
 class NoteForm(forms.ModelForm):
@@ -46,7 +46,7 @@ class StepsForm(forms.ModelForm):
     class Meta:
         model = Steps
         fields = [
-                'step_title',
+                'title',
                 'step_photo',
                 'step_photo_caption',
                 'step_content',
@@ -55,11 +55,57 @@ class StepsForm(forms.ModelForm):
                 'step_code_link',
         ]
         labels = {
-                'step_title' : _('عنوان الخطوة'),
+                'title' : _('عنوان الخطوة'),
                 'step_photo' : _('صورة الخطوة'),
                 'step_photo_caption' : _('وصف الصورة'),
                 'step_content' : _('الخطوة'),
                 'code' : _('ملف الخطوة'),
                 'step_code' : _('الكود المستخدم'),
                 'step_code_link' : _('لينك الكود')
+        }
+
+class StoryForm(forms.ModelForm):
+    story_content = forms.CharField(widget=CKEditorWidget(), label='المقال')
+    class Meta:
+        model = Story
+        fields = [
+            'title',
+            'story_photo_caption',
+            'story_photo',
+            'story_content'
+        ]
+        labels = {
+            'title' : _('العنوان'),
+            'story_photo_caption' : _('وصف الصورة'),
+            'story_photo' : _('الصورة')
+        }
+
+class AboutForm(forms.ModelForm):
+    about_content = forms.CharField(widget=CKEditorWidget(), label='احنا مين')
+    class Meta:
+        modle = About
+        fields = [
+            'title',
+            'about_photo',
+            'about_content'
+        ]
+        labels = {
+            'title' : _('العنوان'),
+            'about_content' : _('احنا مين'),
+            'story_photo' : _('الصورة')
+        }
+
+class NewsForm(forms.ModelForm):
+    news_content = forms.CharField(widget=CKEditorWidget(), label='احنا مين')
+    class Meta:
+        modle = News
+        fields = [
+            'title',
+            'news_photo',
+            'news_content'
+        ]
+        labels = {
+            'title' : _('العنوان'),
+            'news_content' : _('ايه الجديد'),
+            'news_photo' : _('الصورة')
         }

@@ -10,7 +10,11 @@
         {% else %}
           <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
         {% endif %} &nbsp
+        {% if profile.name %}
         <a href="{% url 'accounts:profile' profile.slug %}">{{profile.name}}</a><br>
+        {% else %}
+        <a href="{% url 'accounts:profile' profile.slug %}">{{profile.user}}</a><br>
+        {% endif %}
         <hr>
         {% endfor %}
       </td>

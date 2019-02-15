@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<section class="blog-area section-gap">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 pb-30 header-text">
+        <h1>احنا مين</h1>
+      </div>
+    </div>
+    <div class="row">
+      {% for about in about_list  %}
+      <div class="single-blog col-lg-6 col-md-6">
+          {% if about.about_photo %}
+              <img class="f-img img-fluid mx-auto" src="{{about.about_photo.url}}" alt="">
+          {% else %}
+              <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt="">
+          {% endif %}
+      </div>
+      <div class="single-blog col-lg-6 col-md-6">
+        <h4>
+          {{about.title}}
+        </h4>
+      <p>{{about.about_content|safe}}</p>
+      </div>
+      {% empty %}
+      No records
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock  %}

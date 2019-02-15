@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body  %}
+    <!-- Start blog Area -->
+    <section class="blog-area section-gap">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 pb-30 header-text">
+            <h1>{{story.title}}</h1>
+            <p>
+              {{story.created|date:"j M"}} | {{story.user.username}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div style="display: flex; justify-content: center;">
+            {% if story.story_photo %}
+              <div class="single-blog col-lg-12 col-md-12">
+                <img class="f-img img-fluid mx-auto post_banner" src="{{story.story_photo.url}}" alt="">
+            {% else %}
+              <div class="single-blog col-lg-12 col-md-12">
+                <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+            {% endif %}
+              {{story.story_content|safe}}<br>
+              {{story.story_photo_caption|safe}}<br>
+              {% if story.story_photo %}
+              <img class="f-img img-fluid mx-auto " src="{{story.story_photo.url}}" width="500px" height="500px"><br>
+              {% else %}
+                <div class="single-blog col-lg-12 col-md-12">
+                  <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+    </section>
+    <!-- end blog Area -->
+{% endblock  %}

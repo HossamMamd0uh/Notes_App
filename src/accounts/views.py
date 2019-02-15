@@ -10,6 +10,7 @@ from notes_app.models import Note
 from notes_app.views import detail
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def all_accounts(request):
     all_accounts = Profile.objects.all()
@@ -29,7 +30,7 @@ def register(request):
             user = authenticate(username=username , password=password)
             login(request , user)
             messages.success(request, 'Welcome On Board!')
-            return redirect('/notes')
+            return redirect('/accounts')
     else:
         form = UserCreationForm
 
@@ -42,8 +43,10 @@ def register(request):
 
 def profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
+    blog = Note.objects.all()
     context = {
         'profile' : profile,
+        'blog' : blog,
     }
     return render(request , 'profile.html' , context)
 

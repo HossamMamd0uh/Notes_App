@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<section class="blog-area section-gap">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 pb-30 header-text">
+        <h1>حكاوي</h1>
+      </div>
+      </div>
+  <div class="row">
+{% for new in news_list  %}
+
+  <div class="single-blog col-lg-4 col-md-4">
+      {% if new.news_photo %}
+          <a href="{% url 'notes:detail_new' new.slug %}"><img class="f-img img-fluid mx-auto" src="{{new.news_photo.url}}" alt=""></a>
+      {% else %}
+        <a href="{% url 'notes:detail_new' new.slug %}"><img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt=""></a>
+      {% endif %}
+    <h4>
+      <a href="{% url 'notes:detail_new' new.slug %}">{{new.title}}</a>
+    </h4>
+    <p>
+      {{new.news_content|safe|truncatewords:10}}
+    </p>
+    <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
+      <div>
+        {% if profile.profile_img %}
+          <img src="{{profile.profile_img.url}}" name="aboutme" width="20" height="20" border="0" class="img-circle">
+        {% else %}
+          <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" width="20" height="20" border="0" class="img-circle">
+        {% endif %}
+        <a href="#"><span>{{new.user.username}}</span></a>
+      </div>
+      <div class="meta">
+        {{new.created|date:"j M"}}
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
+  {% empty %}
+  No records
+{% endfor %}
+
+
+</section>
+{% endblock  %}

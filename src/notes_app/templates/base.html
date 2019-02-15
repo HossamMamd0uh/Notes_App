@@ -22,18 +22,14 @@
     CSS
     ============================================= -->
     <link rel="stylesheet" href="{% static 'home-static/css/linearicons.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=El+Messiri" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'home-static/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'home-static/css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'home-static/css/nice-select.css' %}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{% static 'home-static/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'home-static/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'home-static/css/mystyle.css' %}">
-    <style>
-        h2{
-          float: right;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'home-static/css/custome.css' %}">
   </head>
   <body>
 
@@ -46,17 +42,36 @@
               <a href="{% url 'notes:all_notes' %}"><img src="{% static 'home-static/img/favicon.ico' %}" alt="">San3a Documantion App</a>
             </div>
             <div class="main-menubar d-flex align-items-center">
-              <nav class="hide">
+              <nav class="men">
                 {% if user.is_authenticated %}
+                  <a href="{% url 'accounts:logout' %}">تسجيل الخروج</a>
                   <a href="{%url 'notes:add_note' %}">كتابة وصفة</a>
                   <a href="{% url 'accounts:all_accounts' %}">المستدخمين</a>
-                  <a href="{% url 'accounts:logout' %}">تسجيل الخروج</a>
                 {% else %}
                   <a href="{% url 'accounts:login' %}">تسجيل الدخول</a>
                   <a href="{% url 'accounts:register' %}">التسجيل</a>
                 {% endif %}
+                <a href="{%url 'notes:notes_list' %}">وصفات</a>
+                <a href="{%url 'notes:story_list' %}">حكاوي</a>
+                <a href="{%url 'notes:about_list' %}">احنا مين</a>
+                <a href="{%url 'notes:news_list' %}">ايه الجديد</a>
               </nav>
-              <div class="menu-bar"><span class="lnr lnr-menu"></span></div>
+              <div class="main-menubar d-flex align-items-center">
+                <nav class="hide">
+                  {% if user.is_authenticated %}
+                    <a href="{% url 'accounts:logout' %}">تسجيل الخروج</a>
+                    <a href="{%url 'notes:add_note' %}">كتابة وصفة</a>
+                    <a href="{% url 'accounts:all_accounts' %}">المستدخمين</a>
+                  {% else %}
+                    <a href="{% url 'accounts:login' %}">تسجيل الدخول</a>
+                    <a href="{% url 'accounts:register' %}">التسجيل</a>
+                  {% endif %}
+                  <a href="{%url 'notes:notes_list' %}">وصفات</a>
+                  <a href="{%url 'notes:story_list' %}">حكاوي</a>
+                  <a href="{%url 'notes:about_list' %}">احنا مين</a>
+                  <a href="{%url 'notes:news_list' %}">ايه الجديد</a>
+                </nav>
+                <div class="menu-bar"><span class="lnr lnr-menu"></span></div>
             </div>
           </div>
         </div>

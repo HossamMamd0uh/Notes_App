@@ -7,6 +7,9 @@ from ordered_model.models import OrderedModel
 from django_bleach.models import BleachField
 from django.dispatch import receiver
 from .slugify import unique_slug_generator
+from django.utils.text import slugify
+
+
 class Note(models.Model):
     user    = models.ForeignKey(User , on_delete=models.CASCADE)
     title = models.CharField(blank=True, max_length=100)
@@ -34,20 +37,24 @@ class Note(models.Model):
     def __str__(self):
         return self.title
 
-@receiver(models.signals.pre_save, sender=Note)
-def auto_slug_generator(sender, instance, **kwargs):
-    """
-    Creates a slug if there is no slug.
-    """
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
-    def save(self , *args , **kwargs):
-        super(Note , self).save(*args , **kwargs)
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Note.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)
 
 class Steps(models.Model):
     step_assign = models.ForeignKey(Note , on_delete=models.CASCADE)
     slug = models.SlugField(null=True , blank=True)
-    step_title = models.CharField(blank=True, max_length=100)
+    title = models.CharField(blank=True, max_length=100)
     step_photo = models.FileField(upload_to='media' , blank=True)
     step_photo_caption = models.CharField(blank=True, max_length=100)
     step_content = models.TextField(blank=True)
@@ -56,15 +63,95 @@ class Steps(models.Model):
     step_code_link = models.URLField(max_length=500 , blank=True)
 
     def __str__(self):
-        return self.step_title
+        return self.title
+
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Note.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)
+
+class Story(models.Model):
+    user  = models.ForeignKey(User , on_delete=models.CASCADE)
+    title = models.CharField(blank=True, max_length=100)
+    slug  = models.SlugField(null=True , blank=True)
+    story_photo = models.FileField(upload_to='media' , blank=True)
+    story_photo_caption = models.CharField(blank=True, max_length=100)
+    story_content = RichTextField()
+    created = models.DateTimeField(blank=True, default=datetime.datetime.now)
 
 
-@receiver(models.signals.pre_save, sender=Note)
-def auto_slug_generator(sender, instance, **kwargs):
-    """
-    Creates a slug if there is no slug.
-    """
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
-    def save(self , *args , **kwargs):
-        super(Steps , self).save(*args , **kwargs)
+def __str__(self):
+    return self.title
+
+def _get_unique_slug(self):
+    slug = slugify(self.title)
+    unique_slug = slug
+    num = 1
+    while Note.objects.filter(slug=unique_slug).exists():
+        unique_slug = '{}-{}'.format(slug, num)
+        num += 1
+    return unique_slug
+
+def save(self, *args, **kwargs):
+    if not self.slug:
+        self.slug = self._get_unique_slug()
+    super().save(*args, **kwargs)
+
+class About(models.Model):
+    user  = models.ForeignKey(User , on_delete=models.CASCADE)
+    title = models.CharField(blank=True, max_length=100)
+    slug  = models.SlugField(null=True , blank=True)
+    about_photo = models.FileField(upload_to='media' , blank=True)
+    about_content = RichTextField()
+    created = models.DateTimeField(blank=True, default=datetime.datetime.now)
+
+    def __str__(self):
+        return self.title
+
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Note.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)
+
+class News(models.Model):
+    user  = models.ForeignKey(User , on_delete=models.CASCADE)
+    title = models.CharField(blank=True, max_length=100)
+    slug  = models.SlugField(null=True , blank=True)
+    news_photo = models.FileField(upload_to='media' , blank=True)
+    news_content = RichTextField()
+    created = models.DateTimeField(blank=True, default=datetime.datetime.now)
+
+    def __str__(self):
+        return self.title
+
+    def _get_unique_slug(self):
+        slug = slugify(self.title)
+        unique_slug = slug
+        num = 1
+        while Note.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num += 1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save(*args, **kwargs)

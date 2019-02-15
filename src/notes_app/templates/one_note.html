@@ -49,7 +49,7 @@
                   <img class="f-img img-fluid mx-auto post_banner" src="{% static 'home-static/img/3.png' %}" ><br>
               {% endif %}
                 <hr>
-              <h2>:خطوات المشروع</h2><br><br>
+              <h4>:خطوات المشروع</h4><br><br>
               {% for step in steps %}
                       {{step.step_title}}<br>
                       {{step.step_photo_caption}}<br>
@@ -67,16 +67,15 @@
                       {% endif %}
                       <hr>
               {% endfor %}
+              <hr>
               <h2>:الكتالوج</h2><br>
               <h4>:التكلفة الشاملة للمشروع</h4><br>
               {{note.project_cost|safe}}<br>
               <h4>:اماكن شراء الادوات والمكونات</h4><br>
               {{note.purchase_place|safe}}<br>
-              <h4>:</h4><br>
-              {{note.purchase_place|safe}}<br>
-              <h4>:التكلفة الشاملة للمشروع</h4><br>
+              <h4>:اماكن استخدام الادوات</h4><br>
               {{note.tools_usage|safe}}<br>
-              <h4>:التكلفة الشاملة للمشروع</h4><br>
+              <h4>:النهاية</h4><br>
               {{note.the_end|safe}}<br>
               {% if note.comp_photo %}
               <img class="f-img img-fluid mx-auto post_banner" src="{{note.fin_photo.url}}" alt=""><br>

@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 
-LOGIN_REDIRECT_URL = '/notes/add_note'
+LOGIN_REDIRECT_URL = '/notes'
 LOGOUT_REDIRECT_URL = '/accounts/login'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"

@@ -14,8 +14,13 @@
 
 <hr>
 <center>
-  <p class="text-left"><strong>Bio: </strong> {{profile.bio}}<br>
-
+  <p class="text-left"><strong>Bio: </strong> {{profile.bio}}<hr>
+  <p class="text-left"><strong>User Notes: </strong><br>
+  {%for blogs in blog%}
+      {{blogs}}<br>
+  {%endfor%}
+  </center>
+  <center>
     <a href="{% url 'accounts:edit_profile' profile.slug %}">Edit Profile</a>
     <hr>
     <a href="{% url 'accounts:change_password' profile.slug %}">Change Password</a>

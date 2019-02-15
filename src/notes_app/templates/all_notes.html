@@ -1,7 +1,45 @@
-<h3>All The Avaliable Notes</h3>
-  <a href="{% url 'notes:add_note' %}">Add New Note</a>
-  <hr>
-  {% for note in all_notes  %}
-      <a href="{% url 'notes:note_detail' note.slug %}">{{note}}</a>
-      <br>
-  {% endfor %}
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<section class="blog-area section-gap">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 pb-30 header-text">
+        <h1>وصفات</h1>
+      </div>
+    </div>
+    <div class="row">
+      {% for note in notes_list  %}
+      <div class="single-blog col-lg-4 col-md-4">
+          {% if note.photo %}
+              <a href="{% url 'notes:note_detail' note.slug %}"><img class="f-img img-fluid mx-auto" src="{{note.featured_photo.url}}" alt=""></a>
+          {% else %}
+            <a href="{% url 'notes:note_detail' note.slug %}"><img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" alt=""></a>
+          {% endif %}
+        <h4>
+          <a href="{% url 'notes:note_detail' note.slug %}">{{note.title}}</a>
+        </h4>
+        <p>
+          {{note.about|safe|truncatewords:30}}
+        </p>
+        <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            {% if profile.profile_img %}
+              <img src="{{profile.profile_img.url}}" name="aboutme" width="20" height="20" border="0" class="img-circle">
+            {% else %}
+              <img class="f-img img-fluid mx-auto" src="{% static 'home-static/img/android-chrome-192x192.png' %}" width="20" height="20" border="0" class="img-circle">
+            {% endif %}
+            <a href="#"><span>{{note.user.username}}</span></a>
+          </div>
+          <div class="meta">
+            {{note.created|date:"j M"}}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      No records
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock  %}
