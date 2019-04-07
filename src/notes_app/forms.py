@@ -1,13 +1,23 @@
 from django import forms
-from .models import Note , Steps , Story , About , News
+from .models import Note , Steps , Story , About , News , Images
 from ckeditor.widgets import CKEditorWidget
 from django.utils.translation import gettext_lazy as _
 class NoteForm(forms.ModelForm):
+    about = forms.CharField(widget=CKEditorWidget(), label='مقدمة المشروع')
+    about_photo = forms.ImageField()
+    diff = forms.CharField(widget=CKEditorWidget(), label='مستوى الصعوبة')
+    comp = forms.CharField(widget=CKEditorWidget(), label='المكونات')
+    tools = forms.CharField(widget=CKEditorWidget(), label='الادوات')
+    project_cost = forms.CharField(widget=CKEditorWidget(), label='التكلفة الشاملة للمشروع')
+    purchase_place = forms.CharField(widget=CKEditorWidget(), label='اماكن شراء الادوات والمكونات')
+    tools_usage = forms.CharField(widget=CKEditorWidget(), label='اماكن استخدام المكن')
+    the_end = forms.CharField(widget=CKEditorWidget(), label='التصميم')
     class Meta:
         model = Note
         fields = [
                 'title',
                 'about',
+                'diff',
                 'about_photo',
                 'vid',
                 'comp',
@@ -25,8 +35,8 @@ class NoteForm(forms.ModelForm):
         ]
         labels = {
                 'title' : _('العنوان'),
-                'about' : _('مقدمة المشروع'),
-                'about_photo' : _('اضف صورة'),
+
+
                 'vid' : _('ارفع فيديو'),
                 'comp' : _('المكونات'),
                 'comp_photo' : _('صورة المكونات'),
@@ -41,6 +51,12 @@ class NoteForm(forms.ModelForm):
                 'poject_code' : _('ارفع ملف'),
                 'tags' : _('الاشارات'),
         }
+
+class ImageForm(forms.ModelForm):
+    image = forms.ImageField(label='Image')
+    class Meta:
+        model = Images
+        fields = ('image', )
 
 class StepsForm(forms.ModelForm):
     class Meta:

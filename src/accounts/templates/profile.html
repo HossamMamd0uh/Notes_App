@@ -16,9 +16,9 @@
 <center>
   <p class="text-left"><strong>Bio: </strong> {{profile.bio}}<hr>
   <p class="text-left"><strong>User Notes: </strong><br>
-  {%for blogs in blog%}
-      <a href="#">{{blogs}}</a><br>
-  {%endfor%}
+
+      <a href="#">{{profile.blogs}}</a><br>
+
   </center>
   <center>
     <a href="{% url 'accounts:edit_profile' profile.slug %}">Edit Profile</a>

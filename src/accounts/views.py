@@ -43,10 +43,10 @@ def register(request):
 
 def profile(request , slug):
     profile = get_object_or_404(Profile , slug=slug)
-    blog = Note.objects.all()
+
     context = {
         'profile' : profile,
-        'blog' : blog,
+        
     }
     return render(request , 'profile.html' , context)
 

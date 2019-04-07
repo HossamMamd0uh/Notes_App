@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
+    'ckeditor_uploader',
     'notes_app',
     'accounts',
     'bootstrap4',
@@ -74,6 +75,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'notes.wsgi.application'
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases

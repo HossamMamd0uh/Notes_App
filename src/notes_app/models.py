@@ -16,12 +16,13 @@ class Note(models.Model):
     featured_photo = models.FileField(upload_to='media' , blank = True)
     slug    = models.SlugField(null=True , blank=True , allow_unicode=True, unique=True)
     about = models.TextField(blank=True)
-    about_photo = models.FileField(upload_to='media' , blank=True , null=True)
-    vid = models.FileField(upload_to='media' , blank=True)
+    diff = models.TextField(blank=True)
+    about_photo = models.ImageField(upload_to='media' , blank=True , null=True)
+    vid = models.URLField(max_length=500 , blank=True)
     comp = models.TextField(blank=True)
-    comp_photo = models.FileField(upload_to='media' , blank=True)
+    comp_photo = models.ImageField(upload_to='media' , blank=True)
     tools = models.TextField(blank=True)
-    tools_photo = models.FileField(upload_to='media' , blank=True)
+    tools_photo = models.ImageField(upload_to='media' , blank=True)
     project_cost = models.TextField(blank=True, null=True)
     purchase_place = models.TextField(blank=True)
     tools_usage = models.TextField(blank=True)
@@ -31,7 +32,7 @@ class Note(models.Model):
     tags    = models.CharField(blank=True, max_length=300)
     poject_code = models.FileField(upload_to ='document' , blank=True)
     code_link = models.URLField(max_length=500 , blank=True)
-    fin_photo = models.FileField(upload_to='media' , blank=True)
+    fin_photo = models.ImageField(upload_to='media' , blank=True)
     fin_vid = models.URLField(max_length=500 , blank=True)
 
     def __str__(self):
@@ -50,6 +51,11 @@ class Note(models.Model):
         if not self.slug:
             self.slug = self._get_unique_slug()
         super().save(*args, **kwargs)
+
+class Images(models.Model):
+    post = models.ForeignKey(Note, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media',
+                              verbose_name='Image')
 
 class Steps(models.Model):
     step_assign = models.ForeignKey(Note , on_delete=models.CASCADE)

@@ -1,8 +1,9 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponse
+from django.forms import modelformset_factory
 # Create your views here.
-from . models import Note , Steps , Story , About , News
-from . forms import NoteForm , StepsForm , StoryForm , AboutForm
+from . models import Note , Steps , Story , About , News , Images
+from . forms import NoteForm , StepsForm , StoryForm , AboutForm , ImageForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -71,21 +72,31 @@ def detail_story(request , slug):
 
 @login_required
 def note_add(request):
+    ImageFormSet = modelformset_factory(Images,form=ImageForm, extra=3)
     if request.method == 'POST':
         form = NoteForm(request.POST , request.FILES)
+        formset = ImageFormSet(request.POST, request.FILES,
+                               queryset=Images.objects.none())
 
-        if form.is_valid():
+        if form.is_valid() and formset.is_valid():
             new_form = form.save(commit=False)
             new_form.user = request.user
             new_form.save()
+
+            for form in formset.cleaned_data:
+                if form:
+                    image = form['image']
+                    photo = Images(post=form, image=image)
+                    photo.save()
             messages.success(request, 'Note Created Successfully.')
             return redirect('/notes/add_step/' + str(new_form.pk) +'/')
 
     else:
         form = NoteForm()
-
+        formset = ImageFormSet(queryset=Images.objects.none())
     context = {
-        'form' : form
+        'form' : form,
+        'formset' : formset
     }
     return render(request , 'add.html' , context)
 

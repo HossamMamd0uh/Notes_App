@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from notes_app.models import Note
 from django.utils.text import slugify
 from django.db.models.signals import post_save
 # Create your models here.
@@ -14,6 +15,9 @@ class Profile(models.Model):
     bio = models.TextField(blank=True)
     profile_img = models.ImageField(upload_to="media" , blank=True)
     register_date = models.DateTimeField(blank=True, default=datetime.datetime.now , null=True)
+    blogs = models.ForeignKey(Note, on_delete=models.CASCADE, null=True)
+    
+
 
     def save(self , *args , **kwargs):
         if not self.slug:
